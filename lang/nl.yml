@@ -13,6 +13,7 @@ nl:
     Total: 'Totaal'
     Status: 'Status'
     PendingStatus: 'Wachten op bevestiging. Deze pagina controleert dit automatisch opnieuw.'
+    PendingTimeout: 'Dit duurt langer dan verwacht. Je kunt deze pagina gerust sluiten — we mailen je zodra je betaling is bevestigd.'
     TryAgain: 'Probeer opnieuw of kies een andere methode'
     YourOrder: 'Je bestelling'
     Delivery: 'Bezorging'

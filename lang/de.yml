@@ -13,6 +13,7 @@ de:
     Total: 'Gesamt'
     Status: 'Status'
     PendingStatus: 'Warten auf Bestätigung. Diese Seite prüft automatisch erneut.'
+    PendingTimeout: 'Das dauert länger als erwartet. Sie können diese Seite bedenkenlos schließen — wir senden Ihnen eine E-Mail, sobald Ihre Zahlung bestätigt ist.'
     TryAgain: 'Erneut versuchen oder andere Methode wählen'
     YourOrder: 'Ihre Bestellung'
     Delivery: 'Lieferung'

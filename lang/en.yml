@@ -13,6 +13,7 @@ en:
     Total: 'Total'
     Status: 'Status'
     PendingStatus: 'Waiting for confirmation. This page re-checks automatically.'
+    PendingTimeout: 'This is taking longer than expected. You can safely close this page — we will e-mail you as soon as your payment is confirmed.'
     TryAgain: 'Try again or choose another method'
     YourOrder: 'Your order'
     Delivery: 'Delivery'

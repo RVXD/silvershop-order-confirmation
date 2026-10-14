@@ -7,6 +7,12 @@ After:
 SilverShop\Model\Order:
   extensions:
     - SilverShop\OrderConfirmation\Extension\OrderConfirmationExtension
+  # Place the order BEFORE the payment is attempted, so a Reference and a GuestToken are assigned at payment
+  # *initiation* (in onBeforeWrite as the order leaves Cart) — the failure page and support then always have a
+  # reference, even for a declined/cancelled/abandoned attempt. This is also the correct model for asynchronous
+  # methods (iDEAL / Mollie): the order exists as `Unpaid` while the webhook is in flight. Core defaults this to
+  # false; the trade-off (declined/abandoned attempts become Unpaid order records) is intended.
+  place_before_payment: true
 
 SilverShop\Page\CheckoutPageController:
   extensions:

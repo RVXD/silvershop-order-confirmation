@@ -125,4 +125,36 @@ class OrderConfirmationExtensionTest extends SapphireTest
 
         $this->assertSame('failed', $order->getConfirmationState());
     }
+
+    public function testDisplayStatusMapsUnpaidPendingToPending(): void
+    {
+        $order = Order::create();
+        $order->Status = 'Unpaid';
+        $order->write();
+        $this->assertSame('unpaid', $order->getDisplayStatus());
+
+        $payment = Payment::create();
+        $payment->Status = 'PendingPurchase';
+        $payment->write();
+        $order->Payments()->add($payment);
+
+        // Display-only: core Status stays Unpaid, but the badge token becomes "pending".
+        $this->assertSame('Unpaid', $order->Status);
+        $this->assertSame('pending', $order->getDisplayStatus());
+    }
+
+    public function testDisplayStatusPaid(): void
+    {
+        $order = Order::create();
+        $order->Status = 'Paid';
+        $order->write();
+
+        $this->assertSame('paid', $order->getDisplayStatus());
+    }
+
+    public function testPlaceBeforePaymentIsEnabled(): void
+    {
+        // The module places the order before payment so a Reference + GuestToken exist at payment initiation.
+        $this->assertTrue((bool) Order::config()->get('place_before_payment'));
+    }
 }

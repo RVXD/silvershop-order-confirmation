@@ -20,14 +20,45 @@
         <%t SilverShop\OrderConfirmation.OrderReference 'Order reference' %>: <strong>$Order.Reference</strong>
         <% if $Order.Placed %>&middot; <%t SilverShop\OrderConfirmation.Placed 'Placed' %>: $Order.Placed.Nice<% end_if %>
         &middot; <%t SilverShop\OrderConfirmation.Total 'Total' %>: $Order.Total.Nice
-        &middot; <%t SilverShop\OrderConfirmation.Status 'Status' %>: $Order.StatusI18N
+        &middot; <%t SilverShop\OrderConfirmation.Status 'Status' %>:
+        <span class="badge badge--status-$Order.DisplayStatus">$Order.StatusI18N</span>
     </p>
 
     <% if $IsPending %>
-        <div class="order-confirmation__status" role="status" aria-live="polite" data-status-url="$Order.StatusLink">
-            <p><%t SilverShop\OrderConfirmation.PendingStatus 'Waiting for confirmation. This page re-checks automatically.' %></p>
+        <div class="order-confirmation__status" role="status" aria-live="polite"
+             data-oc-poll="$Order.StatusLink"
+             data-oc-success="$Order.ConfirmationLink"
+             data-oc-failed="$Order.FailedLink"
+             data-oc-timeout-text="<%t SilverShop\OrderConfirmation.PendingTimeout 'This is taking longer than expected. You can safely close this page — we will e-mail you as soon as your payment is confirmed.' %>">
+            <p data-oc-status-text><%t SilverShop\OrderConfirmation.PendingStatus 'Waiting for confirmation. This page re-checks automatically.' %></p>
         </div>
-        <meta http-equiv="refresh" content="15">
+        <%-- No-JS fallback: refresh the page periodically. JS clients use the capped poller below instead. --%>
+        <noscript><meta http-equiv="refresh" content="15"></noscript>
+        <script>
+        (function () {
+            var box = document.querySelector('[data-oc-poll]');
+            if (!box || !window.fetch) { return; }
+            var pollUrl = box.getAttribute('data-oc-poll');
+            var successUrl = box.getAttribute('data-oc-success');
+            var failedUrl = box.getAttribute('data-oc-failed');
+            var textEl = box.querySelector('[data-oc-status-text]') || box;
+            var timeoutText = box.getAttribute('data-oc-timeout-text');
+            var tries = 0, max = 40, every = 6000; // cap at ~4 minutes, then stop and reassure
+            function tick() {
+                tries++;
+                fetch(pollUrl, { credentials: 'same-origin', headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+                    .then(function (r) { return r.json(); })
+                    .then(function (d) {
+                        if (d && (d.paid || d.state === 'success')) { window.location = d.redirect || successUrl; return; }
+                        if (d && (d.state === 'failed' || d.state === 'cancelled')) { window.location = failedUrl; return; }
+                        if (tries >= max) { if (textEl) { textEl.textContent = timeoutText; } return; }
+                        setTimeout(tick, every);
+                    })
+                    .catch(function () { if (tries < max) { setTimeout(tick, every); } });
+            }
+            setTimeout(tick, every);
+        })();
+        </script>
     <% end_if %>
 
     <% if $IsSuccess && $PurchaseComplete %>

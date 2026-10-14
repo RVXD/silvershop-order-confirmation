@@ -121,6 +121,26 @@ class OrderConfirmationExtension extends Extension
     }
 
     /**
+     * Display-only status token for the status badge. Returns 'pending' when the order is `Unpaid` but still has
+     * a payment being confirmed (asynchronous iDEAL / Mollie), otherwise the lower-cased order Status.
+     *
+     * The core `Order.Status` is left untouched (it stays `Unpaid` until the webhook flips it to `Paid`) — this
+     * is purely a presentational mapping so templates can render `badge--status-{token}` (a `pending` badge
+     * reads as "in progress", not the amber "Unpaid" which looks like failure just after paying). Used on the
+     * confirmation page and the account order-history view.
+     */
+    public function getDisplayStatus(): string
+    {
+        $order = $this->getOwner();
+        $status = (string) $order->getField('Status');
+        if ($status === 'Unpaid' && $order->hasMethod('HasPendingPayments') && $order->HasPendingPayments()) {
+            return 'pending';
+        }
+
+        return strtolower($status);
+    }
+
+    /**
      * The unified confirmation page link, guaranteed to carry a token (and reference). Server-side callers
      * (the failure-routing hooks, retry redirects) use this; templates can use `$Order.ConfirmationLink`.
      */

@@ -219,38 +219,15 @@ class ConfirmationControllerExtension extends Extension
     }
 
     /**
-     * Single-page checkout ($OrderForm): point the payment's failure/cancel URL at our failed page.
-     */
-    public function updateOrderForm(PaymentForm $paymentForm): void
-    {
-        $this->applyFailureLink($paymentForm);
-    }
-
-    /**
-     * Onsite payment step (/checkout/payment): point the payment's failure/cancel URL at our failed page.
-     */
-    public function updatePaymentForm(PaymentForm $paymentForm): void
-    {
-        $this->applyFailureLink($paymentForm);
-    }
-
-    protected function applyFailureLink(PaymentForm $paymentForm): void
-    {
-        $order = ShoppingCart::curr();
-        if (!$order instanceof Order || !$order->Items()->exists()) {
-            return;
-        }
-
-        // FailedLink() guarantees a reference + token on the (possibly still-Cart) order, so a gateway
-        // cancel/decline on return lands on our failed page with a reference to show.
-        $paymentForm->setFailureLink($order->FailedLink());
-    }
-
-    /**
-     * Route the payment response. Success / off-site redirect keeps core's behaviour; an immediate error goes
-     * to our failed page (with reference + token) instead of dumping the customer back on /checkout.
+     * Route the payment response. Success / off-site redirect keeps core's behaviour; an immediate error (e.g. a
+     * synchronous decline, or an off-site initiation failure) goes to our failed page — with the order's
+     * reference + token — instead of dumping the customer back on /checkout.
      *
      * Hooked by {@link PaymentForm::submitpayment()} when the controller defines this method.
+     *
+     * With `place_before_payment = true` an off-site gateway *cancel/decline on return* is routed by core to
+     * `getReturnUrl()` (= the unified complete page), which renders the failed/cancelled variant and links on to
+     * this failed/retry page — so every failure still reaches a recoverable surface.
      */
     public function processPaymentResponse($serviceResponse, $form): HTTPResponse
     {
@@ -258,12 +235,12 @@ class ConfirmationControllerExtension extends Extension
             return $serviceResponse->redirectOrRespond();
         }
 
-        $order = ShoppingCart::curr();
+        // Resolve via the processor's order (not the cart — place_before_payment has already cleared it).
+        $order = ($form instanceof PaymentForm) ? $form->getOrderProcessor()->getOrder() : null;
         if ($order instanceof Order) {
             return $this->getOwner()->redirect($order->FailedLink());
         }
 
-        // Fallback to core's default error behaviour when there is no resolvable cart (e.g. place_before_payment).
         if ($form instanceof PaymentForm) {
             $form->sessionMessage($form->getOrderProcessor()->getError(), 'bad');
         }

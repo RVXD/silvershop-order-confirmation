@@ -26,10 +26,18 @@ module fixes all of that.
    failed/cancelled. **Pending never claims success** — asynchronous payments show a neutral "confirming" state
    (the redirect is a hint; the webhook is the truth) with a lightweight `checkout/status/{ID}` JSON poll (and a
    `<meta refresh>` fallback) to re-check.
-4. **Failed-payment page with retry.** Gateway failure/cancel routes to `checkout/failed/{ID}?t={token}`, which
+4. **Failed-payment page with retry.** An immediate error routes to `checkout/failed/{ID}?t={token}`, which
    re-exposes core's `OrderActionsForm` (pay again / choose another method) and guards against double-charging
-   ("already paid"). The payment's reference + token are generated at **payment initiation**, so a declined
-   attempt still has a reference to show.
+   ("already paid"). The module sets **`Order.place_before_payment: true`** so the order is placed — and its
+   Reference + GuestToken assigned — *before* the gateway is called; a declined/cancelled/abandoned attempt
+   therefore leaves a recoverable `Unpaid` order with a reference to show (and is the correct model for async
+   methods, where the order is `Unpaid` while the webhook is in flight). With `place_before_payment` on, an
+   off-site gateway *cancel on return* lands on the unified complete page's failed/cancelled variant, which links
+   on to this failed/retry page.
+
+**Deferred in v1:** the guest *account-creation offer* (a prefilled register-from-order form) is left as a hidden
+template slot with a hand-off `TODO`, because that registration flow will be owned by the planned
+`silvershop/auth` module. Guests still reach their order via the GuestToken link — only the up-sell is deferred.
 
 ## Installation
 
@@ -72,10 +80,11 @@ designed, branded versions (status hero, progress stepper, `badge--status-pendin
 | Piece | Hook |
 |---|---|
 | Unified landing | `Order::updateLink()` (core calls `$this->extend('updateLink', $link)` in `Order::Link()`) |
-| Guest token + reference-at-initiation | `Order::onBeforeWrite()` + `ensureConfirmationAccess()` |
+| Reference + guest token at initiation | `Order.place_before_payment: true` + `Order::onBeforeWrite()` (token as the order leaves `Cart`) |
 | `complete` / `failed` / `status` actions | `ConfirmationControllerExtension` on `CheckoutPageController` |
-| Failure/cancel URL | `updateOrderForm` / `updatePaymentForm` → `PaymentForm::setFailureLink()` |
-| Immediate-error routing | `CheckoutPageController::processPaymentResponse()` (the documented `PaymentForm` hook) |
+| Immediate-error routing to the failed page | `CheckoutPageController::processPaymentResponse()` (the documented `PaymentForm` hook) |
+| Pending re-check | `status` JSON endpoint + a capped JS poller (and a no-JS `<meta refresh>` fallback) |
+| Pending status badge | `Order::getDisplayStatus()` (display-only: `Unpaid` + pending payment → `pending`) |
 
 ## Licence
 

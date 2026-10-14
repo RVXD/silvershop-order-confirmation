@@ -1,13 +1,11 @@
-<%-- Guest-only, success-only account-creation offer. v1 ships a link to the registration page (the storefront
-     theme replaces this with the designed, prefilled one-field form). Never forced; the confirmation e-mail
-     goes to the customer either way. No personal data is placed in the URL. --%>
-<section class="account-offer">
-    <h2><%t SilverShop\OrderConfirmation.AccountOfferHeading 'Create an account' %></h2>
-    <p><%t SilverShop\OrderConfirmation.AccountOfferText 'Save your details to track this order and future ones. Your order confirmation still goes to your e-mail either way.' %></p>
-    <ul class="account-offer__benefits">
-        <li><%t SilverShop\OrderConfirmation.AccountBenefit1 'Track your orders' %></li>
-        <li><%t SilverShop\OrderConfirmation.AccountBenefit2 'Faster checkout next time' %></li>
-        <li><%t SilverShop\OrderConfirmation.AccountBenefit3 'Manage your saved addresses' %></li>
-    </ul>
-    <p><a class="btn account-offer__cta" href="{$BaseHref}register"><%t SilverShop\OrderConfirmation.CreateAccountCta 'Create an account' %></a></p>
-</section>
+<%-- Guest account-creation upsell slot — DEFERRED.
+
+     The register-from-order flow (a prefilled one-field form, seeded from the order) will be owned by the
+     planned silvershop/auth module, so we do NOT ship a second registration flow here: no /register link and
+     no live CTA in v1. The slot is kept present but hidden so the thank-you page shows no create-account
+     prompt. Guests still reach their order via the GuestToken link — only the upsell is deferred.
+
+     TODO(silvershop/auth): replace this placeholder with the prefilled register-from-order form, seeded with
+     $Order.Name and $Order.LatestEmail, once that module exists. The storefront theme's styled override of this
+     include will do the same. --%>
+<div class="account-offer" data-account-offer-placeholder hidden aria-hidden="true"></div>

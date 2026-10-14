@@ -1,0 +1,25 @@
+---
+Name: silvershop-order-confirmation
+After:
+  - '#silvershop'
+---
+# Add the confirmation behaviour to the Order and to the checkout controller.
+SilverShop\Model\Order:
+  extensions:
+    - SilverShop\OrderConfirmation\Extension\OrderConfirmationExtension
+
+SilverShop\Page\CheckoutPageController:
+  extensions:
+    - SilverShop\OrderConfirmation\Extension\ConfirmationControllerExtension
+---
+Name: silvershop-order-confirmation-session
+Except:
+  environment: test
+---
+# THE key CMS6 gotcha. SS6 defaults Session.cookie_samesite to 'Strict', which drops the session cookie on
+# the top-level redirect back from an off-site payment gateway (iDEAL / Mollie / etc.), wiping the cart and
+# the guest order-access session. 'Lax' keeps the cookie on that return navigation while still blocking it on
+# cross-site POSTs. Shipping it in the module means every install gets the correct value with no app edit.
+# (Skipped under the 'test' environment so the functional-test harness keeps its own session defaults.)
+SilverStripe\Control\Session:
+  cookie_samesite: 'Lax'

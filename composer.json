@@ -1,0 +1,69 @@
+{
+    "name": "silvershop/order-confirmation",
+    "description": "One status-aware post-payment confirmation page (success / pending / failed / cancelled) for SilverShop: unifies the guest and member landing, adds opaque token guest access to an order, and a dedicated failed-payment page with retry.",
+    "type": "silverstripe-vendormodule",
+    "keywords": [
+        "silverstripe",
+        "silvershop",
+        "ecommerce",
+        "checkout",
+        "order",
+        "confirmation",
+        "thank-you",
+        "payment"
+    ],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "SilverShop Contributors",
+            "homepage": "https://github.com/silvershop/silvershop-order-confirmation/graphs/contributors"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "silverstripe/framework": "^6.0",
+        "silvershop/core": "^6"
+    },
+    "require-dev": {
+        "cambis/silverstan": "^2.1",
+        "silverstripe/recipe-testing": "^4",
+        "silverstripe/sqlite3": "^4",
+        "squizlabs/php_codesniffer": "^3.0"
+    },
+    "suggest": {
+        "silvershop/invoicing": "Adds an invoice-PDF link to the confirmation once the order is paid.",
+        "silvershop/order-admin": "Modern CMS order-management screen for the orders customers land on.",
+        "silvershop/storefront": "Ships the styled confirmation + failed-payment templates the module lights up (the module itself only ships functional fallbacks)."
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "stan": "vendor/bin/phpstan analyse --configuration=phpstan.neon --memory-limit=-1",
+        "lint": "vendor/bin/phpcs",
+        "lint:fix": "vendor/bin/phpcbf"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true,
+            "silverstripe/recipe-plugin": true,
+            "silverstripe/vendor-plugin": true,
+            "php-http/discovery": false
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "1.x-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "SilverShop\\OrderConfirmation\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SilverShop\\OrderConfirmation\\Tests\\": "tests/php/"
+        }
+    },
+    "prefer-stable": true,
+    "minimum-stability": "dev"
+}

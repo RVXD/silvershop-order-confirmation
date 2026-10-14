@@ -1,0 +1,53 @@
+fr:
+  SilverShop\OrderConfirmation:
+    ThankYouHeading: 'Merci pour votre commande'
+    ThankYouLede: 'Votre commande est confirmée. Une confirmation a été envoyée à {email}.'
+    PendingHeading: 'Nous confirmons votre paiement'
+    PendingLede: "Votre commande est passée et nous attendons que votre banque confirme le paiement. Vous n'avez rien à faire — vous pouvez fermer cette page en toute sécurité. Nous enverrons un e-mail à {email} dès qu'il sera confirmé."
+    CancelledHeading: 'Vous avez annulé le paiement'
+    CancelledLede: "Rien n'a été débité et votre commande est enregistrée."
+    FailedHeading: "Votre paiement n'a pas abouti"
+    FailedLede: "Rien n'a été débité. Votre commande est enregistrée pour que vous puissiez réessayer."
+    OrderReference: 'Référence de commande'
+    Placed: 'Passée le'
+    Total: 'Total'
+    Status: 'Statut'
+    PendingStatus: 'En attente de confirmation. Cette page revérifie automatiquement.'
+    TryAgain: 'Réessayer ou choisir une autre méthode'
+    YourOrder: 'Votre commande'
+    Delivery: 'Livraison'
+    Payment: 'Paiement'
+    DownloadInvoice: 'Télécharger la facture (PDF)'
+    ContinueShopping: 'Continuer vos achats'
+    AlreadyPaidHeading: 'Cette commande est déjà payée'
+    AlreadyPaidText: "Bonne nouvelle — cette commande a déjà été payée, il n'y a donc plus rien à faire. Vous ne serez pas débité à nouveau."
+    ViewConfirmation: 'Voir votre confirmation de commande'
+    CancelledFailedText: "Rien n'a été débité et votre commande est enregistrée exactement telle que vous l'avez laissée. Vous pouvez finaliser votre paiement ci-dessous."
+    ErrorHeading: "Nous n'avons pas pu confirmer votre paiement"
+    ErrorText: 'Si votre banque indique le paiement comme effectué, ne payez pas à nouveau — contactez-nous avec votre référence de commande et nous vérifierons.'
+    FailedPageText: "Rien n'a été débité. Vous pouvez réessayer ci-dessous ou choisir un autre moyen de paiement."
+    NoDoubleCharge: "Nous vérifions d'abord un paiement réussi existant — vous ne pouvez pas être débité deux fois."
+    NoRetryAvailable: 'Pour finaliser ce paiement, veuillez nous contacter avec votre référence de commande.'
+    NeedHelp: "Besoin d'aide ? Contactez-nous avec votre référence de commande ; nous pouvons voir les tentatives de paiement de notre côté."
+    BackToShop: 'Retour à la boutique'
+    WhatsNextHeading: 'Et ensuite'
+    StepConfirmPayment: 'Nous confirmons votre paiement — généralement en quelques minutes.'
+    StepEmailPending: 'Nous envoyons votre confirmation par e-mail dès que le paiement est validé.'
+    StepEmail: 'Nous envoyons votre confirmation de commande par e-mail.'
+    StepPacked: 'Nous préparons et emballons votre commande (1 à 2 jours ouvrés).'
+    StepShipped: 'Votre commande est en route, ou prête à être retirée.'
+    AccountOfferHeading: 'Créer un compte'
+    AccountOfferText: "Enregistrez vos informations pour suivre cette commande et les suivantes. Votre confirmation de commande est envoyée à votre e-mail dans tous les cas."
+    AccountBenefit1: 'Suivez vos commandes'
+    AccountBenefit2: 'Commande plus rapide la prochaine fois'
+    AccountBenefit3: 'Gérez vos adresses enregistrées'
+    CreateAccountCta: 'Créer un compte'
+  SilverShop\OrderConfirmation\Extension\ConfirmationControllerExtension:
+    TitleSuccess: 'Merci pour votre commande'
+    TitlePending: 'Nous confirmons votre paiement'
+    TitleCancelled: 'Paiement annulé'
+    TitlePaid: 'Cette commande est déjà payée'
+    TitleError: "Nous n'avons pas pu confirmer votre paiement"
+    TitleFailed: "Votre paiement n'a pas abouti"
+  SilverShop\OrderConfirmation\Extension\OrderConfirmationExtension:
+    db_GuestToken: "Jeton d'accès invité"

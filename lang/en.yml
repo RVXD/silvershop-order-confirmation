@@ -1,0 +1,53 @@
+en:
+  SilverShop\OrderConfirmation:
+    ThankYouHeading: 'Thank you for your order'
+    ThankYouLede: 'Your order is confirmed. A confirmation has been e-mailed to {email}.'
+    PendingHeading: "We're confirming your payment"
+    PendingLede: 'Your order is placed and we are waiting for your bank to confirm the payment. There is nothing you need to do — it is safe to close this page. We will e-mail {email} the moment it is confirmed.'
+    CancelledHeading: 'You cancelled the payment'
+    CancelledLede: 'Nothing has been charged and your order is saved.'
+    FailedHeading: 'Your payment did not go through'
+    FailedLede: 'Nothing has been charged. Your order is saved so you can try again.'
+    OrderReference: 'Order reference'
+    Placed: 'Placed'
+    Total: 'Total'
+    Status: 'Status'
+    PendingStatus: 'Waiting for confirmation. This page re-checks automatically.'
+    TryAgain: 'Try again or choose another method'
+    YourOrder: 'Your order'
+    Delivery: 'Delivery'
+    Payment: 'Payment'
+    DownloadInvoice: 'Download invoice (PDF)'
+    ContinueShopping: 'Continue shopping'
+    AlreadyPaidHeading: 'This order is already paid'
+    AlreadyPaidText: 'Good news — this order has already been paid, so there is nothing more to do. You will not be charged again.'
+    ViewConfirmation: 'View your order confirmation'
+    CancelledFailedText: 'Nothing has been charged and your order is saved exactly as you left it. You can complete your payment below.'
+    ErrorHeading: "We couldn't confirm your payment"
+    ErrorText: 'If your bank shows the payment as completed, please do not pay again — contact us with your order reference and we will check.'
+    FailedPageText: 'Nothing has been charged. You can try again or choose another payment method below.'
+    NoDoubleCharge: "We check for an existing successful payment first — you can't be charged twice."
+    NoRetryAvailable: 'To complete this payment, please contact us with your order reference.'
+    NeedHelp: 'Need a hand? Contact us with your order reference and we can see the payment attempts on our side.'
+    BackToShop: 'Back to the shop'
+    WhatsNextHeading: 'What happens next'
+    StepConfirmPayment: 'We confirm your payment — usually within a few minutes.'
+    StepEmailPending: 'We e-mail your confirmation the moment the payment clears.'
+    StepEmail: 'We e-mail your order confirmation.'
+    StepPacked: 'We prepare and pack your order (1 to 2 working days).'
+    StepShipped: 'Your order is on its way, or ready for pick-up.'
+    AccountOfferHeading: 'Create an account'
+    AccountOfferText: 'Save your details to track this order and future ones. Your order confirmation still goes to your e-mail either way.'
+    AccountBenefit1: 'Track your orders'
+    AccountBenefit2: 'Faster checkout next time'
+    AccountBenefit3: 'Manage your saved addresses'
+    CreateAccountCta: 'Create an account'
+  SilverShop\OrderConfirmation\Extension\ConfirmationControllerExtension:
+    TitleSuccess: 'Thank you for your order'
+    TitlePending: "We're confirming your payment"
+    TitleCancelled: 'Payment cancelled'
+    TitlePaid: 'This order is already paid'
+    TitleError: "We couldn't confirm your payment"
+    TitleFailed: 'Your payment did not go through'
+  SilverShop\OrderConfirmation\Extension\OrderConfirmationExtension:
+    db_GuestToken: 'Guest access token'

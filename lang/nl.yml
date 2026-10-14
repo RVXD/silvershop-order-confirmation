@@ -43,6 +43,13 @@ nl:
     AccountBenefit2: 'Sneller afrekenen de volgende keer'
     AccountBenefit3: 'Beheer je opgeslagen adressen'
     CreateAccountCta: 'Account aanmaken'
+    ViewInAccount: 'Bekijk in je account'
+    DeliveryNote: 'We sturen je bestelling naar het onderstaande adres.'
+    NeedHelpHeading: 'Hulp nodig?'
+    StepConfirmTitle: 'Betaling bevestigen'
+    StepEmailTitle: 'Bevestigingsmail'
+    StepPackedTitle: 'Gemaakt & ingepakt'
+    StepShippedTitle: 'Onderweg'
   SilverShop\OrderConfirmation\Extension\ConfirmationControllerExtension:
     TitleSuccess: 'Bedankt voor je bestelling'
     TitlePending: 'We bevestigen je betaling'

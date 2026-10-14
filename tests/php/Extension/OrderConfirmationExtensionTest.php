@@ -131,16 +131,16 @@ class OrderConfirmationExtensionTest extends SapphireTest
         $order = Order::create();
         $order->Status = 'Unpaid';
         $order->write();
-        $this->assertSame('unpaid', $order->getDisplayStatus());
+        $this->assertSame('Unpaid', $order->getDisplayStatus());
 
         $payment = Payment::create();
         $payment->Status = 'PendingPurchase';
         $payment->write();
         $order->Payments()->add($payment);
 
-        // Display-only: core Status stays Unpaid, but the badge token becomes "pending".
+        // Display-only: core Status stays Unpaid, but the badge token becomes "Pending".
         $this->assertSame('Unpaid', $order->Status);
-        $this->assertSame('pending', $order->getDisplayStatus());
+        $this->assertSame('Pending', $order->getDisplayStatus());
     }
 
     public function testDisplayStatusPaid(): void
@@ -149,7 +149,7 @@ class OrderConfirmationExtensionTest extends SapphireTest
         $order->Status = 'Paid';
         $order->write();
 
-        $this->assertSame('paid', $order->getDisplayStatus());
+        $this->assertSame('Paid', $order->getDisplayStatus());
     }
 
     public function testPlaceBeforePaymentIsEnabled(): void

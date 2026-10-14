@@ -43,6 +43,13 @@ en:
     AccountBenefit2: 'Faster checkout next time'
     AccountBenefit3: 'Manage your saved addresses'
     CreateAccountCta: 'Create an account'
+    ViewInAccount: 'View in your account'
+    DeliveryNote: 'We will send your order to the address below.'
+    NeedHelpHeading: 'Need help?'
+    StepConfirmTitle: 'Confirming payment'
+    StepEmailTitle: 'Confirmation e-mail'
+    StepPackedTitle: 'Made & packed'
+    StepShippedTitle: 'On its way'
   SilverShop\OrderConfirmation\Extension\ConfirmationControllerExtension:
     TitleSuccess: 'Thank you for your order'
     TitlePending: "We're confirming your payment"

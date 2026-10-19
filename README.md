@@ -1,4 +1,4 @@
-# silvershop/order-confirmation
+# silvershop-suite/order-confirmation
 
 One status-aware **post-payment confirmation page** for [SilverShop](https://github.com/silvershop/silvershop-core) —
 the same thank-you page for guests *and* members — plus a dedicated **failed-payment page with retry**. No core
@@ -37,18 +37,18 @@ module fixes all of that.
 
 **Deferred in v1:** the guest *account-creation offer* (a prefilled register-from-order form) is left as a hidden
 template slot with a hand-off `TODO`, because that registration flow will be owned by the planned
-`silvershop/auth` module. Guests still reach their order via the GuestToken link — only the up-sell is deferred.
+`silvershop-suite/auth` module. Guests still reach their order via the GuestToken link — only the up-sell is deferred.
 
 ## Installation
 
 ```bash
-composer require silvershop/order-confirmation
+composer require silvershop-suite/order-confirmation
 ```
 
 Then run `dev/build?flush=all`.
 
-Requires `silvershop/core ^6` (CMS 6, PHP 8.3 / 8.4). Optional: `silvershop/invoicing` (adds an invoice-PDF link
-to the paid confirmation), `silvershop/storefront` (ships the styled templates).
+Requires `silvershop/core ^6` (CMS 6, PHP 8.3 / 8.4). Optional: `silvershop-suite/invoicing` (adds an invoice-PDF link
+to the paid confirmation), `silvershop-suite/storefront` (ships the styled templates).
 
 ## The one mandatory config (shipped for you)
 
@@ -72,7 +72,7 @@ The module ships **functional, unstyled** default templates so it renders correc
 - `templates/SilverShop/OrderConfirmation/Includes/WhatsNext.ss`
 - `templates/SilverShop/OrderConfirmation/Includes/CreateAccountOffer.ss`
 
-A theme overrides any of these by shipping the same path. The `silvershop/storefront` theme supplies the
+A theme overrides any of these by shipping the same path. The `silvershop-suite/storefront` theme supplies the
 designed, branded versions (status hero, progress stepper, `badge--status-pending`, the account-creation offer).
 
 ## How it hooks in (no core fork)

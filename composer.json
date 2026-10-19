@@ -1,5 +1,5 @@
 {
-    "name": "silvershop/order-confirmation",
+    "name": "silvershop-suite/order-confirmation",
     "description": "One status-aware post-payment confirmation page (success / pending / failed / cancelled) for SilverShop: unifies the guest and member landing, adds opaque token guest access to an order, and a dedicated failed-payment page with retry.",
     "type": "silverstripe-vendormodule",
     "keywords": [
@@ -35,9 +35,9 @@
         "squizlabs/php_codesniffer": "^3.0"
     },
     "suggest": {
-        "silvershop/invoicing": "Adds an invoice-PDF link to the confirmation once the order is paid.",
-        "silvershop/order-admin": "Modern CMS order-management screen for the orders customers land on.",
-        "silvershop/storefront": "Ships the styled confirmation + failed-payment templates the module lights up (the module itself only ships functional fallbacks)."
+        "silvershop-suite/invoicing": "Adds an invoice-PDF link to the confirmation once the order is paid.",
+        "silvershop-suite/order-admin": "Modern CMS order-management screen for the orders customers land on.",
+        "silvershop-suite/storefront": "Ships the styled confirmation + failed-payment templates the module lights up (the module itself only ships functional fallbacks)."
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
